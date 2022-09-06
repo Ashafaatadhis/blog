@@ -1,0 +1,2 @@
+delete post,
+dan req client ke server
