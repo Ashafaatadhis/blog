@@ -2,11 +2,11 @@
   background-color: #1a1e21;
   width: 100%;
   height: 650px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
+  /* display: flex; */
+  /* justify-content: start;
+  align-items: center; */
   /* padding-bottom: 100vh/; */
-  flex-direction: column;
+  /* flex-direction: column; */
   color: #fff;
 }
 
@@ -15,24 +15,25 @@
   /* background-color: red; */
 }
 
-.post .post-jumbotron .container {
+.post .post-jumbotron .bungkus {
   /* background-color: red; */
   /* margin-top: 200px/; */
   text-align: center;
   max-width: 1000px;
+
   padding: 120px 20px;
   padding-bottom: 0;
 }
 
-.post .post-ini-article .container {
+.post .post-ini-article .bungkus {
   text-align: center;
   max-width: 1000px;
-  margin-top: 13rem;
+  margin-top: 11rem;
   padding: 0px 20px;
   padding-bottom: 0;
 }
 
-/* .post .post-ini-article .container  */
+/* .post .post-ini-article .bungkus */
 
 .post .post-back a {
   text-decoration: none;
@@ -70,6 +71,12 @@
   /* position: relative; */
 }
 
+.post .post-article img {
+  border-radius: 10px;
+  width: 80%;
+  margin: 0 auto;
+}
+
 .post .post-article {
   /* all: unset/; */
   /* line-height: normal; */
@@ -77,8 +84,16 @@
   /* background-color: red; */
   color: #000;
   font-size: 18px;
+
+  /* padding: 0 100px; */
   text-align: justify;
   /* background-color: red; */
+}
+
+.post .post-article .article-img {
+  width: 100%;
+  /* background-color: red; */
+  display: flex;
 }
 
 /* .jumbotron .jumbotron-desc {
@@ -89,7 +104,7 @@
   .post .post-jumbotron {
     height: 480px;
   }
-  .post .post-jumbotron .container {
+  .post .post-jumbotron .bungkus {
     padding: 100px 20px;
   }
 
@@ -106,8 +121,8 @@
     font-size: 16px;
   }
 
-  .post .post-ini-article .container {
-    margin-top: 9rem;
+  .post .post-ini-article .bungkus {
+    margin-top: 8rem;
   }
 
   .post .post-back a {
@@ -133,16 +148,16 @@
     -webkit-line-clamp: 3; /* number of lines to show */
   }
 
-  .post .post-ini-article .container {
-    margin-top: 6.5rem;
+  .post .post-ini-article .bungkus {
+    margin-top: 6rem;
     padding: 0px 10px;
   }
-  .post .post-jumbotron .container {
+  .post .post-jumbotron .bungkus {
     /* margin-top: 8rem; */
     padding: 80px 10px;
   }
 
-  /* .post .post-jumbotron .container {
+  /* .post .post-jumbotron .bungkus{
     padding: 100px 20px;
   } */
 

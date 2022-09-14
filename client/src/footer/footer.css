@@ -10,7 +10,7 @@ footer {
   box-shadow: 0 -4px 2px -2px #f1f1f1;
 }
 
-footer .container {
+footer .bungkus {
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
@@ -43,7 +43,7 @@ footer .sosmed a {
     font-size: 0.9rem;
   }
 
-  footer .container {
+  footer .bungkus {
     padding: 0 10px;
   }
   footer .sosmed a {
@@ -57,7 +57,7 @@ footer .sosmed a {
     font-size: 0.8rem;
   }
 
-  footer .container {
+  footer .bungkus {
     padding: 0 10px;
   }
   footer .sosmed a {

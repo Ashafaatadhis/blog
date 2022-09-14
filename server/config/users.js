@@ -1,4 +1,14 @@
-const { ref, set, get, update, child, query, push, limitToLast, equalTo, orderByChild, orderByKey } = require("firebase/database");
+const {
+  ref,
+  set,
+  get,
+  update,
+  child,
+  query,
+  push,
+  equalTo,
+  orderByChild,
+} = require("firebase/database");
 const bcrypt = require("bcrypt");
 const database = require("./firebase");
 
@@ -13,7 +23,9 @@ const getAllUsers = async () => {
 const getUser = async (username, password) => {
   const reference = ref(database, "users");
 
-  const snapshot = await get(query(reference, orderByChild("username"), equalTo(username)));
+  const snapshot = await get(
+    query(reference, orderByChild("username"), equalTo(username))
+  );
   //   console.log(snapshot.child("username").val());
   if (snapshot.exists()) {
     const result = await new Promise((resolve) => {
@@ -34,7 +46,9 @@ const getUser = async (username, password) => {
 
 const getUserByRefreshToken = async (refreshToken) => {
   const reference = ref(database, "users");
-  const snapshot = await get(query(reference, orderByChild("refreshToken"), equalTo(refreshToken)));
+  const snapshot = await get(
+    query(reference, orderByChild("refreshToken"), equalTo(refreshToken))
+  );
   if (snapshot.exists()) {
     const result = await new Promise((resolve) => {
       snapshot.forEach((s) => {
@@ -49,7 +63,9 @@ const getUserByRefreshToken = async (refreshToken) => {
 
 const getUserByUsername = async (username) => {
   const reference = ref(database, "users");
-  const snapshot = await get(query(reference, orderByChild("username"), equalTo(username)));
+  const snapshot = await get(
+    query(reference, orderByChild("username"), equalTo(username))
+  );
   if (snapshot.exists()) {
     const result = await new Promise((resolve) => {
       snapshot.forEach((s) => {
@@ -63,7 +79,9 @@ const getUserByUsername = async (username) => {
 const isUserExist = async (username) => {
   const reference = ref(database, "users");
   let key = 0;
-  const snapshot = await get(query(reference, orderByChild("username"), equalTo(username)));
+  const snapshot = await get(
+    query(reference, orderByChild("username"), equalTo(username))
+  );
   if (snapshot.exists()) {
     snapshot.forEach((s) => {
       //   return s.val().post_id;
@@ -90,6 +108,7 @@ const addUser = (username, password) => {
   const reference = push(ref(database, "users"));
   bcrypt.hash(password, 10, (err, hash) => {
     if (err) console.log(err);
+    console.log(hash);
     set(reference, {
       username,
       password: hash,
@@ -97,4 +116,12 @@ const addUser = (username, password) => {
   });
 };
 
-module.exports = { getUser, getUserByRefreshToken, addUser, updateUser, getAllUsers, getUserByUsername, isUserExist };
+module.exports = {
+  getUser,
+  getUserByRefreshToken,
+  addUser,
+  updateUser,
+  getAllUsers,
+  getUserByUsername,
+  isUserExist,
+};

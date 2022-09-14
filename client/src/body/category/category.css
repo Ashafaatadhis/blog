@@ -1,4 +1,4 @@
-.category .container {
+.category .bungkus {
   display: flex;
   padding-top: 30px;
   padding-bottom: 50px;
@@ -6,7 +6,7 @@
   align-items: center;
   column-gap: 30px;
 }
-.category .container a {
+.category .bungkus a {
   text-decoration: none;
   color: #000;
   font-size: 1.2rem;
@@ -15,31 +15,31 @@
   transition: all 0.3s ease;
 }
 
-.category .container a:hover {
+.category .bungkus a:hover {
   background-color: #ff9340;
   color: #fff;
 }
 
 @media only screen and (max-width: 798px) {
-  .category .container {
+  .category .bungkus {
     column-gap: 15px;
   }
-  .category .container a {
+  .category .bungkus a {
     font-size: 1rem;
   }
 }
 
 @media only screen and (max-width: 478px) {
-  .content .container {
+  .content .bungkus {
     /* display: block; */
     grid-template-columns: auto;
     /* gap: ; */
   }
-  .category .container {
+  .category .bungkus {
     column-gap: 5px;
   }
 
-  .category .container a {
+  .category .bungkus a {
     font-size: 0.95rem;
   }
 }

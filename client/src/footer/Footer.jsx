@@ -5,7 +5,7 @@ import "./footer.css";
 const Footer = () => {
   return (
     <footer>
-      <div className="container">
+      <div className="bungkus">
         <div className="copyright">&copy; 2022 All Right Reserved</div>
         <div className="sosmed">
           <a href="https://www.facebook.com/despacito.buruten">

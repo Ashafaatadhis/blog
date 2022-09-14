@@ -1,20 +1,51 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import "./card.css";
 
-const Card = () => {
+const Card = (props) => {
+  const htmlSpecialChars = (text) => {
+    // const map = {
+    //   "&": "&amp;",
+    //   "<": "&lt;",
+    //   ">": "&gt;",
+    //   '"': "&quot;",
+    //   "'": "&#039;",
+    // };
+
+    // return text.replace(/[&<>"']/g, function (m) {
+    //   return map[m];
+    // });
+    // const result = text.match(/^\w+/g);
+    text = text.split("\n");
+
+    const result = text.map((t) => {
+      const result = t.match(/^\w+.+/g);
+
+      return result;
+    });
+
+    return result;
+  };
+
   return (
     <div className="card">
       <div className="card-banner">
-        <img src="https://placeimg.com/300/200/any" alt="" />
+        <img src={props.serverUrl + props.data.banner} alt="" />
       </div>
       <div className="card-wrapper">
-        <p className="card-category">MOBILE</p>
-        <Link to="/post">
-          <h1 className="card-title">How To Create UX Design With Adobe XD</h1>
-        </Link>
-        <p className="card-timestamp">12 FEB 2022</p>
-        <p className="card-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex velit inventore qui adipisci nesciunt? Sed porro facilis voluptatem reprehenderit quasi.</p>
+        <div className="upper">
+          <p className="card-category">MOBILE</p>
+          <Link to={`/post/${props.data.slug}`}>
+            <h1 className="card-title">{props.data.title}</h1>
+          </Link>
+          <p className="card-timestamp">
+            {moment(props.data.created_at).format("DD MMM YYYY")}
+          </p>
+          <div className="card-desc">
+            <p>{htmlSpecialChars(props.data.content)}</p>
+          </div>
+        </div>
         <div className="card-profile-wrapper">
           <div className="card-profile">
             <img src="https://placeimg.com/56/56/any" alt="" />

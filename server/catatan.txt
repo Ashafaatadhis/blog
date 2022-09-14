@@ -1,2 +1,1 @@
-delete post,
-dan req client ke server
+baru sampai check if inputan empty

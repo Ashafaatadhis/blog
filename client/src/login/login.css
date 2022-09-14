@@ -33,6 +33,35 @@
   display: block;
 }
 
+.login .check {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+input.trust {
+  /* color: #1a1e21; */
+  accent-color: #ff9340;
+  width: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+/* .login input.trust {
+  width: auto;
+  display: inline-block;
+  width: 20px;
+}
+
+.login label.trust {
+  display: inline-block;
+  margin-bottom: -20px;
+  padding: 0;
+  /* background-color: red; */
+/* line-height: 0px/; */
+/* display: inline; */
+
 .login button {
   width: 100%;
   border: 0;
@@ -43,7 +72,7 @@
   height: 35px;
 }
 
-.login .container {
+.login .bungkus {
   padding: 30px;
   padding-bottom: 50px;
   width: 400px;
@@ -51,4 +80,11 @@
   /* display: flex;
   flex-direction: column; */
   background-color: white;
+}
+
+.login .bungkus p {
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+  line-height: 50%;
 }

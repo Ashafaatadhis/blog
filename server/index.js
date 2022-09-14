@@ -7,7 +7,16 @@ const port = process.env.PORT || 8080;
 
 app.use(express.json({ type: "application/json" }));
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: true,
+  })
+);
+app.use(express.static("public"));
 app.use(route);
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

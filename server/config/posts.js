@@ -1,4 +1,17 @@
-const { ref, set, get, update, child, query, push, limitToLast, equalTo, orderByChild, orderByKey } = require("firebase/database");
+const {
+  ref,
+  set,
+  get,
+  update,
+  child,
+  query,
+  push,
+  limitToLast,
+  equalTo,
+  orderByChild,
+  remove,
+  startAfter,
+} = require("firebase/database");
 const database = require("./firebase");
 
 const getAllPosts = async () => {
@@ -9,10 +22,16 @@ const getAllPosts = async () => {
     // console.log(snapshot.val());
   }
 };
+
 const addPost = async (data) => {
   const result = await getPostBySlug(data.slug);
   // console.log(l);
-  if (result) {
+
+  if (!result == "") {
+    console.log("kadafa");
+    // const id = await countGetPostBySlug(data.slug);
+    // console.log("anjing", id);
+    // data.slug = data.slug += "-" + id;
     return false;
   }
 
@@ -21,15 +40,36 @@ const addPost = async (data) => {
   return true;
 };
 
-const getPostBySlug = async (slug) => {
+const countGetPostBySlug = async (slug) => {
   const reference = ref(database, "posts");
-  const snapshot = await get(query(reference, orderByChild("slug"), equalTo(slug)));
-  let key = "";
+  const snapshot = await get(
+    query(reference, orderByChild("slug"), equalTo(slug))
+  );
+  let count = 0;
+  console.log(snapshot.val());
   if (snapshot.exists()) {
     snapshot.forEach((s) => {
-      key = s.key;
+      console.log("woiiisdfs", s.val());
+      count += 1;
     });
   }
+  return count;
+};
+
+const getPostBySlug = async (slug) => {
+  const reference = ref(database, "posts");
+  const snapshot = await get(
+    query(reference, orderByChild("slug"), equalTo(slug))
+  );
+  let key = "";
+  // console.log(snapshot.val());
+  // return;
+  if (snapshot.exists()) {
+    snapshot.forEach((s) => {
+      key = s.val();
+    });
+  }
+
   return key;
 };
 const updatePost = async (postData) => {
@@ -45,11 +85,27 @@ const updatePost = async (postData) => {
   }
 };
 
+const deletePost = async (postData) => {
+  const data = await getPost(postData.post_id);
+  console.log("ini", data);
+  if (!data) {
+    return false;
+  }
+  try {
+    return remove(child(ref(database, "posts"), data));
+    // return update(child(ref(database, "posts"), data));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const getPost = async (post_id) => {
   //   const dbRef = ref(database);
   post_id = parseInt(post_id);
   const reference = ref(database, "posts");
-  const snapshot = await get(query(reference, orderByChild("post_id"), equalTo(post_id)));
+  const snapshot = await get(
+    query(reference, orderByChild("post_id"), equalTo(post_id))
+  );
   //   const snapshot = await get(query(reference, limitToLast(1)));
   let key = "";
   //   aih = "asdfsd";
@@ -95,7 +151,9 @@ const getId = async () => {
   //   console.log(recentId.toString());
 
   const reference = ref(database, "posts");
-  const snapshot = await get(query(reference, orderByChild("post_id"), limitToLast(1)));
+  const snapshot = await get(
+    query(reference, orderByChild("post_id"), limitToLast(1))
+  );
   //   const snapshot = await get(query(reference, limitToLast(1)));
   let currId = 0;
 
@@ -109,4 +167,12 @@ const getId = async () => {
   return currId;
 };
 
-module.exports = { addPost, updatePost, getPost, getId, getAllPosts };
+module.exports = {
+  addPost,
+  updatePost,
+  getPost,
+  getId,
+  getAllPosts,
+  deletePost,
+  getPostBySlug,
+};

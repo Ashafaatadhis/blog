@@ -2,12 +2,13 @@ nav {
   background: 0;
   width: 100%;
   position: fixed;
+  z-index: 9999;
   transition: all 0.3s ease;
   /* padding-bottom: 2px; */
   /* border-bottom: 2px solid transparent; */
 }
 
-nav .container {
+nav .bungkus {
   display: flex;
   justify-content: space-between;
   padding: 20px 20px;
@@ -27,7 +28,20 @@ nav .nav-title {
   font-size: 1.5rem;
 }
 
-nav .nav-title span {
+nav .greeting a {
+  text-decoration: none;
+  transition: color 0.3s ease;
+  color: white;
+}
+
+nav .greeting {
+  color: white;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+nav .nav-title span,
+nav .greeting span {
   color: #ff9340;
 }
 
@@ -49,7 +63,7 @@ nav .nav-link a {
 }
 
 @media only screen and (max-width: 478px) {
-  nav .container {
+  nav .bungkus {
     padding: 20px 10px;
   }
 }

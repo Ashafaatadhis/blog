@@ -10,6 +10,16 @@
   color: #fff;
 }
 
+.admin .message {
+  background-color: #f08592;
+  width: 100%;
+  color: #470008;
+
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
 .admin .article {
   width: 100%;
   resize: none;
@@ -23,7 +33,7 @@
   background-color: #ff9340;
   padding: 5px 12px;
   font-size: 1.2rem;
-
+  display: inline-block;
   border: 0;
   margin: 5px 0;
   margin-right: 10px;
@@ -31,12 +41,16 @@
   border-radius: 5px;
 }
 
+.admin .img-article {
+  padding: 2px 12px;
+}
+
 .admin {
   padding-bottom: 100px;
   /* background-color: red; */
 }
 
-.admin .admin-jumbotron .container {
+.admin .admin-jumbotron .bungkus {
   /* background-color: red; */
   /* margin-top: 200px/; */
   text-align: center;
@@ -46,7 +60,7 @@
   padding-bottom: 0;
 }
 
-.admin .admin-ini-article .container {
+.admin .admin-ini-article .bungkus {
   text-align: center;
   max-width: 1000px;
   margin-top: 13rem;
@@ -122,7 +136,7 @@
   /* line-height: normal; */
 
   /* background-color: red; */
-
+  margin-bottom: 20px;
   color: #000;
   font-size: 18px;
   text-align: justify;
@@ -137,7 +151,7 @@
   .admin .admin-jumbotron {
     height: 480px;
   }
-  .admin .admin-jumbotron .container {
+  .admin .admin-jumbotron .bungkus {
     padding: 100px 20px;
   }
 
@@ -154,7 +168,7 @@
     font-size: 16px;
   }
 
-  .admin .admin-ini-article .container {
+  .admin .admin-ini-article .bungkus {
     margin-top: 9rem;
   }
 
@@ -191,11 +205,11 @@
     -webkit-line-clamp: 3; /* number of lines to show */
   }
 
-  .admin .admin-ini-article .container {
+  .admin .admin-ini-article .bungkus {
     margin-top: 6.5rem;
     padding: 0px 10px;
   }
-  .admin .admin-jumbotron .container {
+  .admin .admin-jumbotron .bungkus {
     /* margin-top: 8rem; */
     padding: 80px 10px;
   }

@@ -1,19 +1,20 @@
-.content .container {
+.content .bungkus {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr;
+
   padding: 0 20px;
   gap: 20px;
 }
 
 @media only screen and (max-width: 798px) {
-  .content .container {
-    grid-template-columns: auto auto;
+  .content .bungkus {
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
   }
 }
 
-@media only screen and (max-width: 478px) {
-  .content .container {
+@media only screen and (max-width: 560px) {
+  .content .bungkus {
     /* display: block; */
     grid-template-columns: auto;
     /* gap: ; */
