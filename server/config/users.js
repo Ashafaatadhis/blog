@@ -79,19 +79,20 @@ const getUserByUsername = async (username) => {
 const isUserExist = async (username) => {
   const reference = ref(database, "users");
   let key = 0;
-  const snapshot = await get(
-    query(reference, orderByChild("username"), equalTo(username))
-  );
-  if (snapshot.exists()) {
-    snapshot.forEach((s) => {
-      //   return s.val().post_id;
-      //   ah.push(s.val().post_id);
-
-      key = s.key;
-      //   totalData = s.val().post_id;
-    });
-  }
-
+  try {
+    const snapshot = await get(
+      query(reference, orderByChild("username"), equalTo(username))
+    );
+    if (snapshot.exists()) {
+      snapshot.forEach((s) => {
+        //   return s.val().post_id;
+        //   ah.push(s.val().post_id);
+        console.log(s.val());
+        key = s.key;
+        //   totalData = s.val().post_id;
+      });
+    }
+  } catch (e) {}
   return key;
 };
 

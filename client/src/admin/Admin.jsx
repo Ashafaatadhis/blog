@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { BsUpload } from "react-icons/bs";
-import axios from "../api/axios";
+import axiosJWT from "../api/axiosJWT";
 import slugify from "react-slugify";
 import "./admin.css";
 import Alert from "react-bootstrap/Alert";
@@ -23,6 +23,7 @@ const Admin = () => {
   //   };
   const [img, setImg] = useState();
   const { auth } = useAuth();
+  const axios = axiosJWT();
   const [content, setContent] = useState("");
   const [selectImg, setSelectImg] = useState([]);
   const [postTitle, setPostTitle] = useState("");
@@ -93,6 +94,7 @@ const Admin = () => {
           headers: {
             accept: "application/json",
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${auth?.accessToken}`,
           },
         });
 

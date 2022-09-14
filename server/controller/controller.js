@@ -14,6 +14,8 @@ const {
   getUserByRefreshToken,
   updateUser,
 } = require("../config/users");
+const { addCategory } = require("../config/category");
+
 const moment = require("moment");
 
 // const storage = multer.diskStorage({
@@ -26,11 +28,11 @@ const moment = require("moment");
 // });
 // const uploadMulter = multer({ storage: storage }).array("file");
 const postUpdate = async (req, res) => {
-  const isUser = await isUserExist(req.body.username);
-  if (!isUser) {
-    res.status(401).json({ msg: "Unauthorized" });
-    return;
-  }
+  // const isUser = await isUserExist(req.body.username);
+  // if (!isUser) {
+  //   res.status(401).json({ msg: "Unauthorized" });
+  //   return;
+  // }
   const date = moment().format("YYYY-MM-DD HH:mm:ss");
   req.body.updated_at = date;
   const data = await updatePost({
@@ -50,11 +52,12 @@ const postUpdate = async (req, res) => {
 };
 
 const postAdd = async (req, res) => {
-  // const isExist = await isUserExist(req.body.username);
-  // if (!isExist) {
-  //   res.status(401).json({ msg: "Unauthorized" });
-  //   return;
-  // }
+  const isExist = await isUserExist(req.body.username);
+  console.log(isExist);
+  if (!isExist) {
+    res.status(200).json({ msg: "Unauthorized", color: "danger" });
+    return;
+  }
   // uploadMulter(req, res, function (err) {
   //   if (err instanceof multer.MulterError) {
   //     return res.status(500).json(err);
@@ -138,6 +141,7 @@ const index = async (req, res) => {
   // const isExist = await isUserExist(req.body.username);
   // if (!isExist) {
   //   res.status(400).json({ msg: "User not found" });
+  //   return;
   // }
 
   const posts = await getAllPosts();
@@ -170,7 +174,7 @@ const login = async (req, res, next) => {
   const refreshToken = jwt.sign(
     { username: result.username, password: result.password },
     process.env.REFRESH_KEY,
-    { expiresIn: "15s" }
+    { expiresIn: "1d" }
   );
   res.cookie("refreshToken", refreshToken, {
     maxAge: 86400000,
@@ -180,6 +184,16 @@ const login = async (req, res, next) => {
   updateUser(result.username, { refreshToken });
   res.status(200).json({ msg: "Login Success", accessToken });
   // addUser("admin", "ChitogeKirisaki123");
+};
+
+const createCategory = async (req, res) => {
+  const result = await addCategory(req.body);
+  if (!result) {
+    res.status(200).json({ msg: "Category name is exist", color: "danger" });
+    return;
+  }
+
+  res.status(200).json({ msg: "Category success to added", color: "success" });
 };
 
 const logout = async (req, res) => {
@@ -239,4 +253,5 @@ module.exports = {
   postAdd,
   postDel,
   postSlug,
+  createCategory,
 };
