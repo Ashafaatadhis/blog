@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { BsUpload } from "react-icons/bs";
-import axiosJWT from "../api/axiosJWT";
+import AxiosJWT from "../api/axiosJWT";
+import axios from "../api/axios";
 import slugify from "react-slugify";
 import "./admin.css";
 import Alert from "react-bootstrap/Alert";
@@ -23,8 +24,10 @@ const Admin = () => {
   //   };
   const [img, setImg] = useState();
   const { auth } = useAuth();
-  const axios = axiosJWT();
+  const axiosJWT = AxiosJWT();
+  const [category, setCategory] = useState({});
   const [content, setContent] = useState("");
+  const [selectCategory, setSelectCategory] = useState("");
   const [selectImg, setSelectImg] = useState([]);
   const [postTitle, setPostTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -35,10 +38,18 @@ const Admin = () => {
 
   useEffect(() => {
     console.log(auth);
+    setIsLoading(true);
+    const fetchCategory = async () => {
+      const result = await axios.get("category");
+      setCategory(result.data.result);
+      setIsLoading(false);
+    };
+    fetchCategory();
   }, []);
 
   const formHandler = async (e) => {
     e.preventDefault();
+    console.log("idiafjsf", selectCategory);
     // handlerAlert();
     setShow(false);
     let uploadImg = { imgContent: [] };
@@ -78,6 +89,7 @@ const Admin = () => {
 
       data.append("title", postTitle);
       data.append("content", content);
+      data.append("category", selectCategory);
       data.append("slug", slug);
       data.append("banner", "images/" + uploadImg.banner.fileName);
       // data.append({
@@ -90,7 +102,7 @@ const Admin = () => {
       // document.getElementById("admin-img").style.backgroundColor = 0;
       try {
         setIsLoading((prev) => !prev);
-        const result = await axios.post("post", data, {
+        const result = await axiosJWT.post("post", data, {
           headers: {
             accept: "application/json",
             "Content-Type": "multipart/form-data",
@@ -122,6 +134,11 @@ const Admin = () => {
 
   const handlerAlert = () => {
     setShow((prev) => !prev);
+  };
+
+  const selectHandler = (e) => {
+    // console.log(e.target.value);
+    setSelectCategory(e.target.value);
   };
 
   const handlerTitle = (e) => {
@@ -170,6 +187,7 @@ const Admin = () => {
     <section className="admin">
       {!isLoading ? (
         <form encType="multipart/form-data" onSubmit={formHandler}>
+          {console.log(category)}
           <div className="admin-jumbotron">
             <div className="bungkus">
               <div className="admin-back">
@@ -210,11 +228,16 @@ const Admin = () => {
                 </Alert>
               )}
               <div className="admin-article">
-                <Form.Select aria-label="Default select example">
+                <Form.Select
+                  aria-label="Default select example"
+                  onChange={selectHandler}
+                >
                   <option>Category</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  {Object.keys(category).map((key, index) => (
+                    <option key={index} value={category[key].category_id}>
+                      {category[key].name}
+                    </option>
+                  ))}
                 </Form.Select>
               </div>
               <div className="admin-article">

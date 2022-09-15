@@ -14,6 +14,14 @@ const {
 } = require("firebase/database");
 const database = require("./firebase");
 
+const getAllCategories = async () => {
+  const reference = ref(database, "categories");
+  const snapshot = await get(reference);
+  if (snapshot.exists()) {
+    return snapshot.val();
+  }
+};
+
 const addCategory = async (data) => {
   //   const result = await getPostBySlug(data.slug);
   // console.log(l);
@@ -56,6 +64,10 @@ const isExistCategory = async (name) => {
   return key;
 };
 
+// const getCategoryById = async(id) => {
+
+// }
+
 const getIdCategory = async (name) => {
   const reference = ref(database, "categories");
   const snapshot = await get(
@@ -74,4 +86,4 @@ const getIdCategory = async (name) => {
   return currId;
 };
 
-module.exports = { addCategory };
+module.exports = { addCategory, getAllCategories };

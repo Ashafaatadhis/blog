@@ -99,6 +99,18 @@ const deletePost = async (postData) => {
   }
 };
 
+const postByCategory = async (category) => {
+  const reference = ref(database, "posts");
+
+  const snapshot = await get(
+    query(reference, orderByChild("category"), equalTo(parseInt(category)))
+  );
+
+  if (snapshot.exists()) {
+    return snapshot.val();
+  }
+};
+
 const getPost = async (post_id) => {
   //   const dbRef = ref(database);
   post_id = parseInt(post_id);
@@ -175,4 +187,5 @@ module.exports = {
   getAllPosts,
   deletePost,
   getPostBySlug,
+  postByCategory,
 };

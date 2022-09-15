@@ -4,6 +4,12 @@ import moment from "moment";
 import "./card.css";
 
 const Card = (props) => {
+  Object.keys(props.category).map((key) => {
+    if (props.data.category == key) {
+      props.data.category = props.category[key];
+    }
+  });
+
   const htmlSpecialChars = (text) => {
     // const map = {
     //   "&": "&amp;",
@@ -35,7 +41,7 @@ const Card = (props) => {
       </div>
       <div className="card-wrapper">
         <div className="upper">
-          <p className="card-category">MOBILE</p>
+          <p className="card-category">{props.data.category}</p>
           <Link to={`/post/${props.data.slug}`}>
             <h1 className="card-title">{props.data.title}</h1>
           </Link>

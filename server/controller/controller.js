@@ -6,6 +6,7 @@ const {
   deletePost,
   getPostBySlug,
   getPost,
+  postByCategory,
 } = require("../config/posts");
 const jwt = require("jsonwebtoken");
 const {
@@ -14,7 +15,7 @@ const {
   getUserByRefreshToken,
   updateUser,
 } = require("../config/users");
-const { addCategory } = require("../config/category");
+const { addCategory, getAllCategories } = require("../config/category");
 
 const moment = require("moment");
 
@@ -89,6 +90,7 @@ const postAdd = async (req, res) => {
     title: req.body.title,
     slug: req.body.slug,
     banner: req.body.banner,
+    category: parseInt(req.body.category),
     content: req.body.content,
     created_at: date,
     updated_at: date,
@@ -186,6 +188,21 @@ const login = async (req, res, next) => {
   // addUser("admin", "ChitogeKirisaki123");
 };
 
+const getPostByCategory = async (req, res) => {
+  try {
+    const result = await postByCategory(req.params.post);
+
+    res.status(200).json({
+      msg: "post founded",
+      color: "success",
+      data: result,
+      serverUrl: `${req.protocol}://${req.hostname}:${process.env.PORT}/`,
+    });
+  } catch (e) {
+    res.status(200).json({ msg: "error", color: "danger" });
+  }
+};
+
 const createCategory = async (req, res) => {
   const result = await addCategory(req.body);
   if (!result) {
@@ -194,6 +211,11 @@ const createCategory = async (req, res) => {
   }
 
   res.status(200).json({ msg: "Category success to added", color: "success" });
+};
+
+const getCategory = async (req, res) => {
+  const categories = await getAllCategories();
+  res.status(200).json({ msg: "success", result: categories });
 };
 
 const logout = async (req, res) => {
@@ -254,4 +276,6 @@ module.exports = {
   postDel,
   postSlug,
   createCategory,
+  getCategory,
+  getPostByCategory,
 };
